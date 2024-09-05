@@ -1,6 +1,7 @@
-package kassandrafalsitta.u2w1d1.entities;
+package kassandrafalsitta.u2w1d4.entities;
 
-import kassandrafalsitta.u2w1d1.enums.StateTable;
+
+import kassandrafalsitta.u2w1d4.enums.StateTable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

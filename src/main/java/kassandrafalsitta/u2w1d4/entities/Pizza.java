@@ -1,22 +1,25 @@
-package kassandrafalsitta.u2w1d1.entities;
+package kassandrafalsitta.u2w1d4.entities;
 
 import jakarta.persistence.Table;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.*;
 
-import java.util.UUID;
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "pizzas")
 public class Pizza extends FoodAndDrink {
-    @GeneratedValue
-    @Id
-    @Setter(AccessLevel.NONE)
-    private UUID id;
+    @ManyToMany
+    @JoinTable(name = "pizza_e_topping",
+            joinColumns = @JoinColumn(name = "pizza_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "topping_id", nullable = false)
+    )
     private List<Topping> toppings;
 
     //costruttore
@@ -42,10 +45,13 @@ public class Pizza extends FoodAndDrink {
     }
 
     //To string
+
+
     @Override
     public String toString() {
-        return "Pizza{" +
-                "toppings=" + toppings +
-                '}';
+        return "Pizza{"
+                + super.toString() +
+//                "toppings=" + toppings +
+                "} ";
     }
 }

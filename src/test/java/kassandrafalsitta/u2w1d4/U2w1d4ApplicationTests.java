@@ -1,10 +1,10 @@
-package kassandrafalsitta.u2w1d1;
+package kassandrafalsitta.u2w1d4;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class U2w1d1ApplicationTests {
+class U2w1d4ApplicationTests {
 
 	@Test
 	void contextLoads() {

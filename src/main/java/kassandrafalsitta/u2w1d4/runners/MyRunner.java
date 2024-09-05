@@ -1,7 +1,11 @@
-package kassandrafalsitta.u2w1d1.runners;
+package kassandrafalsitta.u2w1d4.runners;
 
-import kassandrafalsitta.u2w1d1.entities.*;
-import kassandrafalsitta.u2w1d1.enums.StateOrder;
+
+import kassandrafalsitta.u2w1d4.entities.*;
+import kassandrafalsitta.u2w1d4.enums.StateOrder;
+import kassandrafalsitta.u2w1d4.exceptions.NotFoundException;
+import kassandrafalsitta.u2w1d4.exceptions.ValidationException;
+import kassandrafalsitta.u2w1d4.services.FoodAndDrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,6 +38,9 @@ public class MyRunner implements CommandLineRunner {
     @Qualifier("getHawaiianPizzaXl")
     @Autowired
     Pizza hawaiianXl;
+    @Qualifier("getMargheritaPizzaXl")
+    @Autowired
+    Pizza margheritaXl;
     @Qualifier("getSalamiPizzaXl")
     @Autowired
     Pizza salamiXl;
@@ -48,7 +56,29 @@ public class MyRunner implements CommandLineRunner {
     @Qualifier("getCocaCola")
     @Autowired
     Drink cocaCola;
+    //topping
+    @Qualifier("Mozzarella")
+    @Autowired
+    Topping Mozzarella;
+    @Qualifier("Tomato")
+    @Autowired
+    Topping Tomato;
+    @Qualifier("Ham")
+    @Autowired
+    Topping Ham;
+    @Qualifier("Pineapple")
+    @Autowired
+    Topping Pineapple;
+    @Qualifier("Salami")
+    @Autowired
+    Topping Salami;
+    @Qualifier("Onion")
+    @Autowired
+    Topping Onion;
 
+
+    @Autowired
+    private FoodAndDrinkService foodAndDrinkService;
 
 
     @Override
@@ -63,6 +93,47 @@ public class MyRunner implements CommandLineRunner {
         printToppings();
         printDrinks();
 
+        //save
+//        saveFoodAndDrink(List.of(Mozzarella,Tomato,Salami,Pineapple,Onion,Ham,margherita, hawaiian, salami, margheritaXl, salamiXl, hawaiianXl, water, cocaCola, lemonade, wine));
+        System.out.println("\n--------------------------------------------");
+        //findAll
+        try {
+            System.out.println(foodAndDrinkService.findAll());
+        } catch (NotFoundException ex) {
+            System.out.println("Non è stato trovato nessun cibo o bevanda ");
+        }
+        System.out.println("\n--------------------------------------------");
+        //findById
+        try {
+            System.out.println(foodAndDrinkService.findById(UUID.fromString("428fd419-4bfa-4e5e-9002-1a2b746a9a56")));
+        } catch (ValidationException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("\n--------------------------------------------");
+        //delete
+//        try {
+//            foodAndDrinkService.findByIdAndDelete(UUID.fromString("1963fd75-7ec2-45c6-8750-4522227c313a"));
+//        } catch (ValidationException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+        //update
+        try {
+            foodAndDrinkService.findByIdAndUpdate(UUID.fromString("b1cf1beb-26a2-45bb-a793-2582a7002bfa"), salami);
+        } catch (ValidationException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
+    }
+
+    public void saveFoodAndDrink(List<FoodAndDrink> foodAndDrink) {
+        try {
+            foodAndDrinkService.saveFoodAndDrink(foodAndDrink);
+        } catch (ValidationException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public Order getOrder(Table table) {
@@ -82,7 +153,8 @@ public class MyRunner implements CommandLineRunner {
         order.getFoodAndDrinks().addAll(List.of(wine, hawaiianXl, salamiXl));
         return order;
     }
-    public  void printPizzas() {
+
+    public void printPizzas() {
         System.out.println("\n");
         System.out.println("Pizzas                                                        Calories            Price");
         menu.getPizze().forEach(pizza -> {
@@ -92,7 +164,8 @@ public class MyRunner implements CommandLineRunner {
             System.out.printf("%-10s %-45s %10d %18.2f\n", pizza.getName(), "(" + toppings + ")", pizza.getCalories(), pizza.getPrice());
         });
     }
-    public  void printPizzasXL() {
+
+    public void printPizzasXL() {
         System.out.println("\n");
         System.out.println("Pizzas XL                                                     Calories            Price");
 
@@ -100,16 +173,18 @@ public class MyRunner implements CommandLineRunner {
             String toppings = pizza.getToppings().stream()
                     .map(FoodAndDrink::getName)
                     .collect(Collectors.joining(", "));
-            System.out.printf("%-13s %-45s %8d %18.2f\n",pizza.getName(),"(" +toppings+")", pizza.getCalories(), pizza.getPrice());
+            System.out.printf("%-13s %-45s %8d %18.2f\n", pizza.getName(), "(" + toppings + ")", pizza.getCalories(), pizza.getPrice());
         });
     }
-    public  void printToppings() {
+
+    public void printToppings() {
         System.out.println("\nToppings                                                      Calories            Price");
         menu.getToppings().forEach(topping ->
                 System.out.printf("%-20s %46d %18.2f\n", topping.getName(), topping.getCalories(), topping.getPrice())
         );
     }
-    public  void printDrinks() {
+
+    public void printDrinks() {
         System.out.println("\nDrinks                                                       Calories             Price");
 
         menu.getDrinks().forEach(drink ->

@@ -1,4 +1,4 @@
-package kassandrafalsitta.u2w1d1.entities;
+package kassandrafalsitta.u2w1d4.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
