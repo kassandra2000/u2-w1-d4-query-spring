@@ -116,14 +116,28 @@ public class MyRunner implements CommandLineRunner {
 //        } catch (ValidationException ex) {
 //            System.out.println(ex.getMessage());
 //        }
+
+
+        System.out.println("\n--------------------------------------------");
         //update
-        try {
-            foodAndDrinkService.findByIdAndUpdate(UUID.fromString("b1cf1beb-26a2-45bb-a793-2582a7002bfa"), salami);
-        } catch (ValidationException ex) {
-            System.out.println(ex.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+//        try {
+//            foodAndDrinkService.findByIdAndUpdate(UUID.fromString("f04555eb-7ff3-464e-a744-c6c1d13da790"), salami);
+//        } catch (ValidationException ex) {
+//            System.out.println(ex.getMessage());
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//        }
+
+        System.out.println("\n--------------------------------------------");
+        //count
+        System.out.println("ci sono: " + foodAndDrinkService.count() + " cibi e bevande");
+
+        System.out.println("\n--------------------------------------------");
+        //find
+        System.out.println(foodAndDrinkService.findByName("ananas"));
+        System.out.println("\n--------------------------------------------");
+        System.out.println(foodAndDrinkService.findByCalories(800)+"\n");
+
 
 
     }

@@ -50,7 +50,7 @@ public class FoodAndDrinkService {
         if (found instanceof Pizza & updatedFoodAndDrink instanceof Pizza) {
             ((Pizza) found).setToppings(((Pizza) updatedFoodAndDrink).getToppings());
         } else {
-            throw new RuntimeException("Il tipo da modificare deve essere uguale");
+            System.out.println("Errore");
         }
         ;
         foodAndDrinkRepository.save(found);
