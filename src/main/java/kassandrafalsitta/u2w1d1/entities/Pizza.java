@@ -1,15 +1,22 @@
 package kassandrafalsitta.u2w1d1.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.Table;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.*;
 
+import java.util.UUID;
 @Getter
 @Setter
+@Entity
+@Table(name = "pizzas")
 public class Pizza extends FoodAndDrink {
+    @GeneratedValue
+    @Id
+    @Setter(AccessLevel.NONE)
+    private UUID id;
     private List<Topping> toppings;
 
     //costruttore

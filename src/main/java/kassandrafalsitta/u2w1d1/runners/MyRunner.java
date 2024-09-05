@@ -1,4 +1,4 @@
-package kassandrafalsitta.u2w1d1;
+package kassandrafalsitta.u2w1d1.runners;
 
 import kassandrafalsitta.u2w1d1.entities.*;
 import kassandrafalsitta.u2w1d1.enums.StateOrder;
