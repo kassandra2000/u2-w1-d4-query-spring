@@ -109,7 +109,7 @@ public class MyRunner implements CommandLineRunner {
         } catch (ValidationException ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println("\n--------------------------------------------");
+//        System.out.println("\n--------------------------------------------");
         //delete
 //        try {
 //            foodAndDrinkService.findByIdAndDelete(UUID.fromString("1963fd75-7ec2-45c6-8750-4522227c313a"));
@@ -120,14 +120,20 @@ public class MyRunner implements CommandLineRunner {
 
         System.out.println("\n--------------------------------------------");
         //update
-//        try {
-//            foodAndDrinkService.findByIdAndUpdate(UUID.fromString("f04555eb-7ff3-464e-a744-c6c1d13da790"), salami);
-//        } catch (ValidationException ex) {
-//            System.out.println(ex.getMessage());
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e.getMessage());
-//        }
+        try {
+            foodAndDrinkService.findByIdAndUpdate(UUID.fromString("428fd419-4bfa-4e5e-9002-1a2b746a9a56"), foodAndDrinkService.findById(UUID.fromString("b1cf1beb-26a2-45bb-a793-2582a7002bfa")));
+        } catch (ValidationException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
+
+
+
+
+//        System.out.println(salami);
+//        System.out.println(salami.getToppings());
         System.out.println("\n--------------------------------------------");
         //count
         System.out.println("ci sono: " + foodAndDrinkService.count() + " cibi e bevande");

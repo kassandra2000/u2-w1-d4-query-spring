@@ -32,7 +32,7 @@ public class FoodAndDrinkService {
     }
 
     public FoodAndDrink findById(UUID foodAndDrinkId) {
-        return foodAndDrinkRepository.findById(foodAndDrinkId).orElseThrow(() -> new NotFoundException(foodAndDrinkId)); // Alternativa molto più compatta al codice di sopra
+        return foodAndDrinkRepository.findById(foodAndDrinkId).orElseThrow(() -> new NotFoundException(foodAndDrinkId));
     }
 
     public void findByIdAndDelete(UUID foodAndDrinkId) {

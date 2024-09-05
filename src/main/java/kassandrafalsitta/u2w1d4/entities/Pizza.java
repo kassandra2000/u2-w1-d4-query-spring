@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "pizzas")
 public class Pizza extends FoodAndDrink {
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "pizza_e_topping",
             joinColumns = @JoinColumn(name = "pizza_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "topping_id", nullable = false)
